@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import br.edu.atitus.greetingservices.dto.NameRequest;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,6 +41,18 @@ public class GreetingController {
         if (name == null || name.isEmpty()) {
             name = config.getDefaultName();
         }
+        String greetingReturn = String.format("%s %s!!!", config.getGreeting(), name);
+        return greetingReturn;
+    }
+
+    @PostMapping
+    public String postGreeting(@RequestBody NameRequest request) {
+        String name = request.getName();
+
+        if (name == null || name.isEmpty()) {
+            name = config.getDefaultName();
+        }
+
         String greetingReturn = String.format("%s %s!!!", config.getGreeting(), name);
         return greetingReturn;
     }
